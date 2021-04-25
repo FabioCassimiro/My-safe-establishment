@@ -9,11 +9,11 @@ public class OrderPad extends AbstractEntity{
 
     private long customerId;
     private String customerName;
-    private String Status;
     private String payment;
     private double rate;
     private double tip;
     private double value;
+    private String status;
 
     public long getCustomerId() {
         return customerId;
@@ -32,11 +32,11 @@ public class OrderPad extends AbstractEntity{
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        status = status;
     }
 
     public String getPayment() {
@@ -74,6 +74,7 @@ public class OrderPad extends AbstractEntity{
     public OrderPad(long customerId, String customerName) {
         this.customerId = customerId;
         this.customerName = customerName;
+        this.status = "0";
     }
 
     public OrderPad() {
@@ -84,11 +85,11 @@ public class OrderPad extends AbstractEntity{
         return "OrderPad{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\'' +
-                ", Status='" + Status + '\'' +
                 ", payment='" + payment + '\'' +
                 ", rate=" + rate +
                 ", tip=" + tip +
                 ", value=" + value +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
