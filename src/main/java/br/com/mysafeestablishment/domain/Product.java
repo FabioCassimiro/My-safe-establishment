@@ -1,33 +1,16 @@
 package br.com.mysafeestablishment.domain;
 
-import org.springframework.lang.NonNull;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.Table;
 
 @Entity
-public class Product implements Serializable {
+@Table(name = "products")
+public class Product extends AbstractEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
     private String name;
     private String typeProduct;
     private String description;
     private double value;
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -69,20 +52,6 @@ public class Product implements Serializable {
     }
 
     public Product() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Product product = (Product) o;
-        return id == product.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id);
     }
 
     @Override
