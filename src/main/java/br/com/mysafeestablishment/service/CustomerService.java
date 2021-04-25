@@ -14,10 +14,12 @@ public class CustomerService {
     private final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
     CustomerRepository customerRepository;
+    OrderPadService orderPadService;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository){
+    public CustomerService(CustomerRepository customerRepository,OrderPadService orderPadService){
         this.customerRepository = customerRepository;
+        this.orderPadService = orderPadService;
     }
 
     public Customer register(Customer newCustomer) throws RegisteredUserException {
@@ -26,8 +28,16 @@ public class CustomerService {
         return newCustomer;
     }
 
-    public Customer login(Customer customer) throws CustomerNotFoundException {
-        return hasLogin(customer);
+    public Customer login(Customer requestCustomer) throws CustomerNotFoundException {
+        Customer customer = customerRepository.findCustomerByCpfAndPhoneNumber(requestCustomer.getCpf(), requestCustomer.getPhoneNumber());
+        if (customer == null){
+            throw new CustomerNotFoundException("Usuario nao cadastrado");
+        }
+
+        if(orderPadService.createOrderPad(customer) == null){
+          throw new CustomerNotFoundException("Erro login");
+        }
+        return customer;
     }
 
     public void hasRegister(Customer customer) throws RegisteredUserException {
