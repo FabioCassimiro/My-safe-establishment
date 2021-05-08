@@ -1,10 +1,9 @@
-package br.com.mysafeestablishment.controller;
+package br.com.mysafeestablishment.controller.user;
 
-import br.com.mysafeestablishment.domain.Customer;
-import br.com.mysafeestablishment.exception.CustomerNotFoundException;
-import br.com.mysafeestablishment.exception.RegisteredUserException;
-import br.com.mysafeestablishment.service.CustomerService;
+import br.com.mysafeestablishment.domain.user.Customer;
+import br.com.mysafeestablishment.service.user.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,13 +19,13 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/register")
-    public Customer register(@RequestBody Customer customer) throws RegisteredUserException {
+    @PostMapping("/public/customer/register")
+    public ResponseEntity<String> register(@RequestBody Customer customer) {
         return customerService.register(customer);
     }
 
-    @PostMapping("/login")
-    public Customer login(@RequestBody Customer customer) throws CustomerNotFoundException {
+    @PostMapping("/public/customer/login")
+    public ResponseEntity<String> login(@RequestBody Customer customer) {
         return customerService.login(customer);
     }
 

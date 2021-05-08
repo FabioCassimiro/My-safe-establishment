@@ -1,8 +1,8 @@
-package br.com.mysafeestablishment.domain;
+package br.com.mysafeestablishment.domain.user;
+
+import br.com.mysafeestablishment.domain.AbstractEntity;
 
 import javax.persistence.Entity;
-import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 public class Customer extends AbstractEntity {
