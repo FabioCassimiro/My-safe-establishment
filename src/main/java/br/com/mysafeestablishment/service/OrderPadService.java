@@ -1,6 +1,6 @@
 package br.com.mysafeestablishment.service;
 
-import br.com.mysafeestablishment.domain.Customer;
+import br.com.mysafeestablishment.domain.user.Customer;
 import br.com.mysafeestablishment.domain.OrderPad;
 import br.com.mysafeestablishment.repository.OrderPadRepository;
 import org.slf4j.Logger;

@@ -1,12 +1,14 @@
-package br.com.mysafeestablishment.service;
+package br.com.mysafeestablishment.service.user;
 
-import br.com.mysafeestablishment.domain.Customer;
-import br.com.mysafeestablishment.exception.CustomerNotFoundException;
+import br.com.mysafeestablishment.domain.user.Customer;
 import br.com.mysafeestablishment.exception.RegisteredUserException;
-import br.com.mysafeestablishment.repository.CustomerRepository;
+import br.com.mysafeestablishment.repository.user.CustomerRepository;
+import br.com.mysafeestablishment.service.OrderPadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,22 +24,26 @@ public class CustomerService {
         this.orderPadService = orderPadService;
     }
 
-    public Customer register(Customer newCustomer) throws RegisteredUserException {
-        hasRegister(newCustomer);
-        customerRepository.save(newCustomer);
-        return newCustomer;
+    public ResponseEntity<String> register(Customer newCustomer){
+        try {
+            hasRegister(newCustomer);
+            customerRepository.save(newCustomer);
+        } catch (Exception e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<String>("Custumer criado com sucesso", HttpStatus.CREATED);
     }
 
-    public Customer login(Customer requestCustomer) throws CustomerNotFoundException {
+    public ResponseEntity<String> login(Customer requestCustomer)  {
         Customer customer = customerRepository.findCustomerByCpfAndPhoneNumber(requestCustomer.getCpf(), requestCustomer.getPhoneNumber());
         if (customer == null){
-            throw new CustomerNotFoundException("Usuario nao cadastrado");
+            return new ResponseEntity<String>("Usuario não cadastrado", HttpStatus.BAD_REQUEST);
         }
 
         if(orderPadService.createOrderPad(customer) == null){
-          throw new CustomerNotFoundException("Erro login");
+
         }
-        return customer;
+        return new ResponseEntity<String>("Logado com sucesso", HttpStatus.OK);
     }
 
     public void hasRegister(Customer customer) throws RegisteredUserException {
@@ -45,14 +51,6 @@ public class CustomerService {
         if (customers != null){
             throw new RegisteredUserException("Usuario ja cadastrado");
         }
-    }
-
-    public Customer hasLogin(Customer customer) throws CustomerNotFoundException {
-        Customer customers = customerRepository.findCustomerByCpfAndPhoneNumber(customer.getCpf(), customer.getPhoneNumber());
-        if (customers == null){
-            throw new CustomerNotFoundException("Usuario nao cadastrado");
-        }
-        return customers;
     }
 
 }
