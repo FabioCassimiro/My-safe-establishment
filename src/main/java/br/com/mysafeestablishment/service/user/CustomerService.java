@@ -34,15 +34,12 @@ public class CustomerService {
         return new ResponseEntity<String>("Custumer criado com sucesso", HttpStatus.CREATED);
     }
 
-    public ResponseEntity<String> login(Customer requestCustomer)  {
+    public ResponseEntity<String> login(Customer requestCustomer) {
         Customer customer = customerRepository.findCustomerByCpfAndPhoneNumber(requestCustomer.getCpf(), requestCustomer.getPhoneNumber());
         if (customer == null){
             return new ResponseEntity<String>("Usuario não cadastrado", HttpStatus.BAD_REQUEST);
         }
 
-        if(orderPadService.createOrderPad(customer) == null){
-
-        }
         return new ResponseEntity<String>("Logado com sucesso", HttpStatus.OK);
     }
 

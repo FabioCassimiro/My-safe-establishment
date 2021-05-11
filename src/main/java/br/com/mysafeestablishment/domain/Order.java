@@ -6,10 +6,19 @@ import javax.persistence.*;
 @Table(name = "orders")
 public class Order extends AbstractEntity{
 
+    private long orderPadId;
     private long productId;
     private String productName;
     private int quantity;
     private double value;
+
+    public long getOrderPadId() {
+        return orderPadId;
+    }
+
+    public void setOrderPadId(long orderPadId) {
+        this.orderPadId = orderPadId;
+    }
 
     public long getProductId() {
         return productId;
@@ -43,9 +52,8 @@ public class Order extends AbstractEntity{
         this.value = value;
     }
 
-    public Order(long productId, String productName, int quantity) {
+    public Order(long productId, int quantity) {
         this.productId = productId;
-        this.productName = productName;
         this.quantity = quantity;
     }
 
@@ -55,7 +63,8 @@ public class Order extends AbstractEntity{
     @Override
     public String toString() {
         return "Order{" +
-                "productId=" + productId +
+                "orderPadId=" + orderPadId +
+                ", productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", quantity=" + quantity +
                 ", value=" + value +

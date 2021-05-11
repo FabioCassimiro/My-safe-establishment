@@ -1,11 +1,19 @@
 package br.com.mysafeestablishment.service;
 
-import br.com.mysafeestablishment.domain.user.Customer;
+import br.com.mysafeestablishment.api.request.CloseOrderPadRequest;
+import br.com.mysafeestablishment.api.request.CreateOrderPadRequest;
+import br.com.mysafeestablishment.api.request.PaymentOrderPadRequest;
 import br.com.mysafeestablishment.domain.OrderPad;
+import br.com.mysafeestablishment.domain.TableEstablishment;
+import br.com.mysafeestablishment.domain.user.Customer;
 import br.com.mysafeestablishment.repository.OrderPadRepository;
+import br.com.mysafeestablishment.repository.user.CustomerRepository;
+import br.com.mysafeestablishment.repository.user.TableEstablishmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,31 +21,77 @@ public class OrderPadService {
     private final Logger logger = LoggerFactory.getLogger(OrderPadService.class);
 
     OrderPadRepository orderPadRepository;
+    TableEstablishmentRepository tableEstablishmentRepository;
+    CustomerRepository customerRepository;
+
+    private final double TAX_RATE = 0.10;
+    private final String AWAIT_PAYMENT_STATUS = "1";
+    private final String OPEN_STATUS = "0";
 
     @Autowired
-    public OrderPadService(OrderPadRepository orderPadRepository){
+    public OrderPadService(OrderPadRepository orderPadRepository, TableEstablishmentRepository tableEstablishmentRepository, CustomerRepository customerRepository) {
         this.orderPadRepository = orderPadRepository;
+        this.tableEstablishmentRepository = tableEstablishmentRepository;
+        this.customerRepository = customerRepository;
     }
 
-    public OrderPad register(OrderPad newOrderPad){
-        orderPadRepository.save(newOrderPad);
-        return newOrderPad;
-    }
-
-    public OrderPad createOrderPad(Customer customer){
+    public ResponseEntity<String> createOrderPad(CreateOrderPadRequest createOrderPadRequest){
         OrderPad orderPad = new OrderPad();
+        Customer customer = customerRepository.findById(createOrderPadRequest.getCustomerId());
 
-        try{
-            orderPad.setCustomerId(customer.getId());
-            orderPad.setCustomerName(customer.getName());
-            return orderPadRepository.save(orderPad);
-        }catch (Exception e){
-            logger.error("metodo='createOrderPad' - mensagem='Falha ao criar Ordem de pagamento'");
-        }
+        orderPad.setCustomerId(customer.getId());
+        orderPad.setCustomerName(customer.getName());
+        orderPad.setStatus(OPEN_STATUS);
+        orderPad.setQuantityCustomer(createOrderPadRequest.getQuantityCustomer());
+        reservationTable(createOrderPadRequest.getTableId());
+        orderPad.setTableId(createOrderPadRequest.getTableId());
+        orderPadRepository.save(orderPad);
 
-        logger.info("metodo='createOrderPad' - mensagem='Ordepad Created' - Orderpad='{}'",orderPad);
-        return orderPad;
-
+        return new ResponseEntity<String>("comanda criada com sucesso!", HttpStatus.CREATED);
     }
+
+    public ResponseEntity<OrderPad> closeOrderPad(CloseOrderPadRequest closeOrderPadRequest){
+
+        final OrderPad orderPad = orderPadRepository.findByCustomerIdAndStatus(closeOrderPadRequest.getCustomerId(),"0");
+
+        orderPad.setPayment(closeOrderPadRequest.getPayment());
+        orderPad.setTip(closeOrderPadRequest.getTip());
+        orderPad.setStatus(AWAIT_PAYMENT_STATUS);
+        calculateRate(orderPad);
+        calculateOrdedPad(orderPad);
+        return new ResponseEntity<OrderPad>(orderPadRepository.save(orderPad), HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> paymentOrderPad(PaymentOrderPadRequest paymentOrderPadRequest){
+        OrderPad orderPad = orderPadRepository.findByCustomerIdAndStatus(paymentOrderPadRequest.getCustomerId(),"1");
+        if (orderPad == null){
+            return new ResponseEntity<String>("Comanda em aberto, solicite o fechamento", HttpStatus.BAD_REQUEST);
+        }
+        TableEstablishment tableEstablishment = tableEstablishmentRepository.findByIdAndAndStatusTable(orderPad.getTableId(),"1");
+        if(orderPad.getValue() != paymentOrderPadRequest.getValuePayment()){
+            return new ResponseEntity<String>("Valor pago menor que o valor da comanda - Valor comanda:R$ " + orderPad.getValue(), HttpStatus.BAD_REQUEST);
+        }
+        orderPad.setStatus("2");
+        tableEstablishment.setStatusTable("0");
+        orderPadRepository.save(orderPad);
+        tableEstablishmentRepository.save(tableEstablishment);
+
+        return new ResponseEntity<String>("comanda encerrada com sucesso!", HttpStatus.CREATED);
+    }
+
+    public void reservationTable(long tableId){
+        TableEstablishment tableEstablishment = tableEstablishmentRepository.findByIdAndAndStatusTable(tableId,"0");
+        tableEstablishment.setStatusTable("1");
+        tableEstablishmentRepository.save(tableEstablishment);
+    }
+
+    public void calculateRate(OrderPad orderPad){
+        orderPad.setRate(orderPad.getValue() * TAX_RATE);
+    }
+
+    public void calculateOrdedPad(OrderPad orderPad){
+        orderPad.setValue(orderPad.getValue() + orderPad.getRate() + orderPad.getTip());
+    }
+
 }
 

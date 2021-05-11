@@ -1,8 +1,9 @@
 package br.com.mysafeestablishment.controller;
 
-import br.com.mysafeestablishment.domain.Order;
+import br.com.mysafeestablishment.api.request.OrdersRequest;
 import br.com.mysafeestablishment.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +18,8 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("order/register")
-    public Order register(@RequestBody Order order){
-        return orderService.register(order);
+    @PostMapping("/private/customer/order/register")
+    public ResponseEntity<String> register(@RequestBody OrdersRequest ordersRequest){
+        return orderService.register(ordersRequest);
     }
 }
