@@ -1,11 +1,6 @@
 package br.com.mysafeestablishment.domain.user;
 
-import br.com.mysafeestablishment.domain.AbstractEntity;
-
-import javax.persistence.Entity;
-
-@Entity
-public class Customer extends AbstractEntity {
+public class Customer {
 
     private String name;
     private String phoneNumber;
