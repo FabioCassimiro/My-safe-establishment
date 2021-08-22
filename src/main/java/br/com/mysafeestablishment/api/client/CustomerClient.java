@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "customerClient", url = "https://my-safe-establishment-company.herokuapp.com/")
+@FeignClient(name = "customerClient", url = "https://msec-dev.herokuapp.com/")
 public interface CustomerClient {
 
     @PostMapping("/public/customer/login")
@@ -15,8 +15,5 @@ public interface CustomerClient {
 
     @PostMapping("/public/customer/register")
     ResponseEntity<String> customerRegister(@RequestBody CustomerRequest customerRequest);
-
-    @GetMapping("public/server")
-    String status();
 
 }

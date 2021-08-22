@@ -20,11 +20,11 @@ public class CustomerService {
     }
 
     public ResponseEntity<String> register(CustomerRequest newCustomer){
-        return customerClient.customerLogin(newCustomer);
+        return customerClient.customerRegister(newCustomer);
     }
 
     public ResponseEntity<String> login(CustomerRequest customerRequest) {
-        return customerClient.customerRegister(customerRequest);
+        return customerClient.customerLogin(customerRequest);
     }
 
 
