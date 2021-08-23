@@ -1,23 +1,23 @@
-package br.com.mysafeestablishment.domain.user;
+package br.com.mysafeestablishment.api.request;
 
-public class Customer {
+public class CustomerRequest {
 
     private String name;
     private String phoneNumber;
     private String cpf;
 
-    public Customer(String name, String phoneNumber, String cpf) {
+    public CustomerRequest(String name, String phoneNumber, String cpf) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.cpf = cpf;
     }
 
-    public Customer(String phoneNumber, String cpf) {
+    public CustomerRequest(String phoneNumber, String cpf) {
         this.phoneNumber = phoneNumber;
         this.cpf = cpf;
     }
 
-    public Customer() {
+    public CustomerRequest() {
 
     }
 
@@ -47,7 +47,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "CustomerRequest{" +
                 "name='" + name + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", cpf='" + cpf + '\'' +
