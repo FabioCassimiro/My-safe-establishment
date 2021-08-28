@@ -8,8 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin; //TODO: Verificar se a importação está correta do CrossOrigin
 
-
+@CrossOrigin
 @RestController
 public class CustomerController {
 
