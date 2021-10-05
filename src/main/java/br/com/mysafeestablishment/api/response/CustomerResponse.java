@@ -4,19 +4,21 @@ import br.com.mysafeestablishment.api.ErrorResponse;
 
 public class CustomerResponse extends ErrorResponse {
 
-    private Long customerId;
     private String name;
+    private Long customerId;
     private String token;
 
-    public CustomerResponse() {
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
+    public CustomerResponse(String name, Long customerId, String token) {
+        this.name = name;
         this.customerId = customerId;
+        this.token = token;
+    }
+
+    public CustomerResponse(String errorMessage) {
+        super(errorMessage);
+        this.name = null;
+        this.customerId = null;
+        this.token = null;
     }
 
     public String getName() {
@@ -25,6 +27,14 @@ public class CustomerResponse extends ErrorResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getToken() {
@@ -38,8 +48,8 @@ public class CustomerResponse extends ErrorResponse {
     @Override
     public String toString() {
         return "CustomerResponse{" +
-                "customerId=" + customerId +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", customerId=" + customerId +
                 ", token='" + token + '\'' +
                 '}';
     }

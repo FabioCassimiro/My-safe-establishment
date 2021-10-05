@@ -4,6 +4,7 @@ import br.com.mysafeestablishment.api.client.CustomerClient;
 import br.com.mysafeestablishment.api.request.CustomerRequest;
 import br.com.mysafeestablishment.api.response.CustomerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,19 @@ public class CustomerService {
     }
 
     public ResponseEntity<CustomerResponse> register(CustomerRequest customerRequest) {
-        return customerClient.customerRegister(customerRequest);
+        CustomerResponse customerResponse = customerClient.customerRegister(customerRequest);
+        if (customerResponse.getErrorMessage() == null) {
+            return new ResponseEntity<>(customerResponse, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(customerResponse, HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<CustomerResponse> login(CustomerRequest customerRequest) {
-        return customerClient.customerLogin(customerRequest);
+        CustomerResponse customerResponse = customerClient.customerLogin(customerRequest);
+        if (customerResponse.getErrorMessage() == null) {
+            return new ResponseEntity<>(customerResponse, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(customerResponse, HttpStatus.BAD_REQUEST);
     }
 
 }
