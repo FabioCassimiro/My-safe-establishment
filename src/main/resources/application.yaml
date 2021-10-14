@@ -1,4 +1,0 @@
-secret: segredo
-#spring.datasource.username: postgres
-#spring.datasource.password: root
-#spring.datasource.url: jdbc:postgresql://localhost:5432/my_safe_establishment
