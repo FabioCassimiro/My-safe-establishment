@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/public/customer")
+@RequestMapping("/public")
 @CrossOrigin
 public class CustomerController {
 
@@ -26,7 +26,7 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<CustomerResponse> login(@RequestBody CustomerRequest customer) {
+    public ResponseEntity<CustomerResponse> login(@RequestBody CustomerRequest customer) throws Exception {
         return customerService.login(customer);
     }
 
