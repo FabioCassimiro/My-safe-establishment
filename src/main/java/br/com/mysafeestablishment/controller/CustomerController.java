@@ -30,8 +30,4 @@ public class CustomerController {
         return customerService.login(customer);
     }
 
-    @GetMapping("/teste")
-    public String teste(){
-        return "Teste";
-    }
 }

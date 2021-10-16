@@ -1,7 +1,7 @@
 package br.com.mysafeestablishment.security.filter;
 
-import br.com.mysafeestablishment.utils.JWTUtils;
 import br.com.mysafeestablishment.security.service.UserDetailsServiceImpl;
+import br.com.mysafeestablishment.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
