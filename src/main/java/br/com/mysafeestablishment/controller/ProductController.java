@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/private")
+@CrossOrigin
 public class ProductController {
 
     private final MySafeEstablishmentClient api;
