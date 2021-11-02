@@ -2,6 +2,7 @@ package br.com.mysafeestablishment.controller;
 
 import br.com.mysafeestablishment.api.client.MySafeEstablishmentClient;
 import br.com.mysafeestablishment.api.domain.TableEstablishment;
+import br.com.mysafeestablishment.api.response.MessageResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,12 +34,12 @@ public class TableController {
     }
 
     @PutMapping("/table/update")
-    public String updateTables(@RequestBody TableEstablishment table) throws Exception {
+    public TableEstablishment updateTables(@RequestBody TableEstablishment table) throws Exception {
         return api.updateTable(table);
     }
 
     @DeleteMapping("table/delete/{id}")
-    public String deleteTables(@PathVariable() Long id) throws Exception {
+    public MessageResponse deleteTables(@PathVariable() Long id) throws Exception {
         return api.delectTable(id);
     }
 }

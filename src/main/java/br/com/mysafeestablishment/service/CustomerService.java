@@ -39,17 +39,12 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public ResponseEntity<CustomerResponse> register(CustomerRequest customerRequest) {
-        try {
-            hasRegister(customerRequest);
-            CustomerResponse customerResponse = saveCustomer(customerRequest);
-            logger.info("Customer criado com sucesso - CustomerResponse='{}'", customerResponse);
-            customerResponse.setToken(authenticateUser(customerRequest));
-            return new ResponseEntity<>(customerResponse, HttpStatus.CREATED);
-        } catch (Exception e) {
-            logger.error("Não foi possivel criar o customer - erro='{}'", e.getMessage());
-            return new ResponseEntity<>(new CustomerResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<CustomerResponse> register(CustomerRequest customerRequest) throws Exception {
+        hasRegister(customerRequest);
+        CustomerResponse customerResponse = saveCustomer(customerRequest);
+        logger.info("Customer criado com sucesso - CustomerResponse='{}'", customerResponse);
+        customerResponse.setToken(authenticateUser(customerRequest));
+        return new ResponseEntity<>(customerResponse, HttpStatus.CREATED);
     }
 
     public void hasRegister(CustomerRequest customerRequest) throws Exception {
@@ -73,7 +68,7 @@ public class CustomerService {
         return new CustomerResponse(customer.getName(), customer.getId(), null);
     }
 
-    public ResponseEntity<CustomerResponse> login(CustomerRequest customerRequest) {
+    public ResponseEntity<CustomerResponse> login(CustomerRequest customerRequest) throws Exception{
         try {
             String token = authenticateUser(customerRequest);
             Customer customer = customerRepository.findByCpf(customerRequest.getCpf());
@@ -84,10 +79,7 @@ public class CustomerService {
             ), HttpStatus.OK);
         } catch (Exception e) {
             logger.error("Não foi possivel autenticar usuario - erro='{}'", e.getMessage());
-            return new ResponseEntity<>(
-                    new CustomerResponse(
-                            String.format("Não foi possivel autenticar usuario - erro='{}'", e.getMessage())
-                    ), HttpStatus.BAD_REQUEST);
+            throw e;
         }
     }
 

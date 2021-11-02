@@ -8,6 +8,7 @@ import br.com.mysafeestablishment.api.request.CreateOrderPadRequest;
 import br.com.mysafeestablishment.api.request.PaymentOrderPadRequest;
 import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
 import br.com.mysafeestablishment.api.domain.Order;
+import br.com.mysafeestablishment.api.response.MessageResponse;
 import br.com.mysafeestablishment.api.response.OrdersRequest;
 import feign.Headers;
 import feign.Param;
@@ -31,7 +32,7 @@ public interface MySafeEstablismentApi {
     Product registerProduct(@RequestBody Product product) throws Exception;
 
     @RequestLine("DELETE /private/owner/product/delete/{id}")
-    String delectProduct(@Param("id") Long id) throws Exception;
+    MessageResponse delectProduct(@Param("id") Long id) throws Exception;
 
     @RequestLine("PUT /private/owner/product/update")
     Product updateProduct(@RequestBody Product product) throws Exception;
@@ -70,8 +71,8 @@ public interface MySafeEstablismentApi {
     TableEstablishment registerTable(@RequestBody TableEstablishment table) throws Exception;
 
     @RequestLine("DELETE /private/owner/table/delete/{id}")
-    String delectTable(@Param("id") Long id) throws Exception;
+    MessageResponse delectTable(@Param("id") Long id) throws Exception;
 
     @RequestLine("PUT /private/owner/table/update")
-    String updateTable(@RequestBody TableEstablishment table) throws Exception;
+    TableEstablishment updateTable(@RequestBody TableEstablishment table) throws Exception;
 }

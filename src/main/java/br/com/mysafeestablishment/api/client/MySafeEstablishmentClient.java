@@ -8,6 +8,7 @@ import br.com.mysafeestablishment.api.request.CloseOrderPadRequest;
 import br.com.mysafeestablishment.api.request.CreateOrderPadRequest;
 import br.com.mysafeestablishment.api.request.PaymentOrderPadRequest;
 import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
+import br.com.mysafeestablishment.api.response.MessageResponse;
 import br.com.mysafeestablishment.api.response.OrdersRequest;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -44,7 +45,7 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public String delectProduct(Long id) throws Exception {
+    public MessageResponse delectProduct(Long id) throws Exception {
         return getApi().delectProduct(id);
     }
 
@@ -99,12 +100,12 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public String delectTable(Long id) throws Exception {
+    public MessageResponse delectTable(Long id) throws Exception {
         return getApi().delectTable(id);
     }
 
     @Override
-    public String updateTable(TableEstablishment table) throws Exception {
+    public TableEstablishment updateTable(TableEstablishment table) throws Exception {
         return getApi().updateTable(table);
     }
 }

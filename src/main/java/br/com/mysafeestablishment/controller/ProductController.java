@@ -2,6 +2,7 @@ package br.com.mysafeestablishment.controller;
 
 import br.com.mysafeestablishment.api.client.MySafeEstablishmentClient;
 import br.com.mysafeestablishment.api.domain.Product;
+import br.com.mysafeestablishment.api.response.MessageResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ProductController {
     }
 
     @DeleteMapping("product/delete/{id}")
-    public String deleteProduct(@PathVariable() Long id) throws Exception {
+    public MessageResponse deleteProduct(@PathVariable() Long id) throws Exception {
         return api.delectProduct(id);
     }
 }
