@@ -9,7 +9,7 @@ import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/private")
+@RequestMapping("/private/orderpad")
 @CrossOrigin
 public class OrderPadController {
 

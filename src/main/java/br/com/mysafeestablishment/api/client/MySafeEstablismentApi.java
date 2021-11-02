@@ -40,7 +40,7 @@ public interface MySafeEstablismentApi {
     /* Order */
 
     @RequestLine("POST /private/order/register")
-    String registerOrder(@RequestBody OrdersRequest ordersRequest) throws Exception;
+    MessageResponse registerOrder(@RequestBody OrdersRequest ordersRequest) throws Exception;
 
     @RequestLine("GET /private/order/{customerId}")
     ArrayList<Order> allOrdersByCustomerId(@Param("customerId") Long customerId) throws Exception;
@@ -50,14 +50,14 @@ public interface MySafeEstablismentApi {
 
     /* OrderPad */
 
-    @RequestLine("POST /private/ordepad/create")
+    @RequestLine("POST /private/orderpad/create")
     OrderPad createOrderPad(@RequestBody CreateOrderPadRequest createOrderPadRequest) throws Exception;
 
-    @RequestLine("POST /private/ordepad/close")
-    CloseOrderPadResponse closerOrderPad(@RequestBody CloseOrderPadRequest closeOrderPadRequest);
+    @RequestLine("POST /private/orderpad/close")
+    CloseOrderPadResponse closerOrderPad(@RequestBody CloseOrderPadRequest closeOrderPadRequest) throws Exception;
 
-    @RequestLine("POST /private/ordepad/payment")
-    OrderPad paymentOrderPad(@RequestBody PaymentOrderPadRequest paymentOrderPadRequest);
+    @RequestLine("POST /private/orderpad/payment")
+    OrderPad paymentOrderPad(@RequestBody PaymentOrderPadRequest paymentOrderPadRequest) throws Exception;
 
     /* Tables */
 

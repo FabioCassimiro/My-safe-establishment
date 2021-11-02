@@ -55,7 +55,7 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public String registerOrder(OrdersRequest ordersRequest) throws Exception {
+    public MessageResponse registerOrder(OrdersRequest ordersRequest) throws Exception {
         return getApi().registerOrder(ordersRequest);
     }
 
@@ -75,12 +75,12 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public CloseOrderPadResponse closerOrderPad(CloseOrderPadRequest closeOrderPadRequest) {
+    public CloseOrderPadResponse closerOrderPad(CloseOrderPadRequest closeOrderPadRequest) throws Exception{
         return getApi().closerOrderPad(closeOrderPadRequest);
     }
 
     @Override
-    public OrderPad paymentOrderPad(PaymentOrderPadRequest paymentOrderPadRequest) {
+    public OrderPad paymentOrderPad(PaymentOrderPadRequest paymentOrderPadRequest) throws Exception {
         return getApi().paymentOrderPad(paymentOrderPadRequest);
     }
 

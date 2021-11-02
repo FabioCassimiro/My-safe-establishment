@@ -33,6 +33,12 @@ public class CreateOrderPadRequest {
     public CreateOrderPadRequest() {
     }
 
+    public CreateOrderPadRequest(long customerId, int quantityCustomer, long tableId) {
+        this.customerId = customerId;
+        this.quantityCustomer = quantityCustomer;
+        this.tableId = tableId;
+    }
+
     @Override
     public String toString() {
         return "CreateOrderPadRequest{" +

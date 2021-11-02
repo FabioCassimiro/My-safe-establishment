@@ -20,6 +20,9 @@ public class CustomErrorDecoder implements ErrorDecoder {
             return e;
         }
         JsonObject json = gson.fromJson(body, JsonObject.class);
+        if (json.isJsonNull()){
+            return new Exception(response.body().toString());
+        }
         return new Exception(json.get("message").getAsString());
     }
 }
