@@ -2,7 +2,7 @@ package br.com.mysafeestablishment.api.response;
 
 import br.com.mysafeestablishment.api.ErrorResponse;
 
-public class CustomerResponse extends ErrorResponse {
+public class CustomerResponse {
 
     private String name;
     private Long customerId;
@@ -14,11 +14,7 @@ public class CustomerResponse extends ErrorResponse {
         this.token = token;
     }
 
-    public CustomerResponse(String errorMessage) {
-        super(errorMessage);
-        this.name = null;
-        this.customerId = null;
-        this.token = null;
+    public CustomerResponse() {
     }
 
     public String getName() {
