@@ -21,7 +21,7 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<CustomerResponse> register(@RequestBody CustomerRequest customer) {
+    public ResponseEntity<CustomerResponse> register(@RequestBody CustomerRequest customer) throws Exception {
         return customerService.register(customer);
     }
 
