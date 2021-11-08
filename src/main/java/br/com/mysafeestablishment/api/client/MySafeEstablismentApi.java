@@ -5,6 +5,7 @@ import br.com.mysafeestablishment.api.domain.Product;
 import br.com.mysafeestablishment.api.domain.TableEstablishment;
 import br.com.mysafeestablishment.api.request.CloseOrderPadRequest;
 import br.com.mysafeestablishment.api.request.CreateOrderPadRequest;
+import br.com.mysafeestablishment.api.request.PaymentOrderPadByCardRequest;
 import br.com.mysafeestablishment.api.request.PaymentOrderPadRequest;
 import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
 import br.com.mysafeestablishment.api.domain.Order;
@@ -22,19 +23,19 @@ public interface MySafeEstablismentApi {
 
     /* Product */
 
-    @RequestLine("GET /private/owner/products")
+    @RequestLine("GET /private/products")
     ArrayList<Product> allProducts() throws Exception;
 
-    @RequestLine("GET /private/owner/product/{id}")
+    @RequestLine("GET /private/product/{id}")
     Product productById(@Param("id") Long id) throws Exception;
 
-    @RequestLine("POST /private/owner/product/register")
+    @RequestLine("POST /private/product/register")
     Product registerProduct(@RequestBody Product product) throws Exception;
 
-    @RequestLine("DELETE /private/owner/product/delete/{id}")
+    @RequestLine("DELETE /private/product/delete/{id}")
     MessageResponse delectProduct(@Param("id") Long id) throws Exception;
 
-    @RequestLine("PUT /private/owner/product/update")
+    @RequestLine("PUT /private/product/update")
     Product updateProduct(@RequestBody Product product) throws Exception;
 
     /* Order */
@@ -46,7 +47,7 @@ public interface MySafeEstablismentApi {
     ArrayList<Order> allOrdersByCustomerId(@Param("customerId") Long customerId) throws Exception;
 
     @RequestLine("GET /private/order/{customerId}/{orderId}")
-    Order ordersByCustomerId(@Param("customerId") Long customerId, @Param("customerId") Long orderId) throws Exception;
+    Order ordersByCustomerId(@Param("customerId") Long customerId, @Param("orderId") Long orderId) throws Exception;
 
     /* OrderPad */
 
@@ -59,20 +60,26 @@ public interface MySafeEstablismentApi {
     @RequestLine("POST /private/orderpad/payment")
     OrderPad paymentOrderPad(@RequestBody PaymentOrderPadRequest paymentOrderPadRequest) throws Exception;
 
+    @RequestLine("POST /private/orderpad/card/payment")
+    OrderPad paymentOrderPadbyCard(@RequestBody PaymentOrderPadByCardRequest paymentOrderPadByCardRequest) throws Exception;
+
+    @RequestLine("GET /private/orderpad/{orderpadId}/{customerId}")
+    OrderPad orderPadByIdAndCustomerId(@Param("orderpadId") long orderpadId, @Param("customerId") long customerId) throws Exception;
+
     /* Tables */
 
-    @RequestLine("GET /private/owner/tables")
+    @RequestLine("GET /private/tables")
     ArrayList<TableEstablishment> allTables() throws Exception;
 
-    @RequestLine("GET /private/owner/table/{id}")
+    @RequestLine("GET /private/table/{id}")
     TableEstablishment tableById(@Param("id") Long id) throws Exception;
 
-    @RequestLine("POST /private/owner/table/register")
+    @RequestLine("POST /private/table/register")
     TableEstablishment registerTable(@RequestBody TableEstablishment table) throws Exception;
 
-    @RequestLine("DELETE /private/owner/table/delete/{id}")
+    @RequestLine("DELETE /private/table/delete/{id}")
     MessageResponse delectTable(@Param("id") Long id) throws Exception;
 
-    @RequestLine("PUT /private/owner/table/update")
+    @RequestLine("PUT /private/table/update")
     TableEstablishment updateTable(@RequestBody TableEstablishment table) throws Exception;
 }

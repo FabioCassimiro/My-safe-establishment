@@ -6,6 +6,7 @@ import br.com.mysafeestablishment.api.domain.Product;
 import br.com.mysafeestablishment.api.domain.TableEstablishment;
 import br.com.mysafeestablishment.api.request.CloseOrderPadRequest;
 import br.com.mysafeestablishment.api.request.CreateOrderPadRequest;
+import br.com.mysafeestablishment.api.request.PaymentOrderPadByCardRequest;
 import br.com.mysafeestablishment.api.request.PaymentOrderPadRequest;
 import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
 import br.com.mysafeestablishment.api.response.MessageResponse;
@@ -13,6 +14,7 @@ import br.com.mysafeestablishment.api.response.OrdersRequest;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
+import feign.slf4j.Slf4jLogger;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
         return Feign.builder()
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
+                .logger(new Slf4jLogger())
                 .errorDecoder(new CustomErrorDecoder());
     }
 
@@ -75,13 +78,23 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public CloseOrderPadResponse closerOrderPad(CloseOrderPadRequest closeOrderPadRequest) throws Exception{
+    public CloseOrderPadResponse closerOrderPad(CloseOrderPadRequest closeOrderPadRequest) throws Exception {
         return getApi().closerOrderPad(closeOrderPadRequest);
     }
 
     @Override
     public OrderPad paymentOrderPad(PaymentOrderPadRequest paymentOrderPadRequest) throws Exception {
         return getApi().paymentOrderPad(paymentOrderPadRequest);
+    }
+
+    @Override
+    public OrderPad paymentOrderPadbyCard(PaymentOrderPadByCardRequest paymentOrderPadByCardRequest) throws Exception {
+        return getApi().paymentOrderPadbyCard(paymentOrderPadByCardRequest);
+    }
+
+    @Override
+    public OrderPad orderPadByIdAndCustomerId(long orderpadId, long customerId) throws Exception {
+        return getApi().orderPadByIdAndCustomerId(orderpadId, customerId);
     }
 
     @Override

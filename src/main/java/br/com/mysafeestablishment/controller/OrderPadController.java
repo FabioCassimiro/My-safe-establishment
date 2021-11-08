@@ -4,6 +4,7 @@ import br.com.mysafeestablishment.api.client.MySafeEstablishmentClient;
 import br.com.mysafeestablishment.api.domain.OrderPad;
 import br.com.mysafeestablishment.api.request.CloseOrderPadRequest;
 import br.com.mysafeestablishment.api.request.CreateOrderPadRequest;
+import br.com.mysafeestablishment.api.request.PaymentOrderPadByCardRequest;
 import br.com.mysafeestablishment.api.request.PaymentOrderPadRequest;
 import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
 import org.springframework.web.bind.annotation.*;
@@ -33,4 +34,15 @@ public class OrderPadController {
     public OrderPad paymentOrderPad(@RequestBody PaymentOrderPadRequest paymentOrderPadRequest) throws Exception {
         return api.paymentOrderPad(paymentOrderPadRequest);
     }
+
+    @PostMapping("card/payment")
+    public OrderPad paymentOrderPadbyCard(@RequestBody PaymentOrderPadByCardRequest paymentOrderPadByCardRequest) throws Exception {
+        return api.paymentOrderPadbyCard(paymentOrderPadByCardRequest);
+    }
+
+    @GetMapping("/{orderpadId}/{customerId}")
+    public OrderPad orderPadByIdAndCustomerId(@PathVariable long orderpadId, @PathVariable long customerId) throws Exception {
+        return api.orderPadByIdAndCustomerId(orderpadId, customerId);
+    }
+
 }
