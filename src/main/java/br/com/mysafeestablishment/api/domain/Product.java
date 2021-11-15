@@ -7,6 +7,7 @@ public class Product extends AbstractEntity {
     private String description;
     private String ingredients;
     private double value;
+    private ProductDetails productDetails;
 
     public Product() {
 
@@ -50,6 +51,14 @@ public class Product extends AbstractEntity {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public ProductDetails getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(ProductDetails productDetails) {
+        this.productDetails = productDetails;
     }
 
     public Product(String name, String typeProduct, String description, String ingredients, double value) {

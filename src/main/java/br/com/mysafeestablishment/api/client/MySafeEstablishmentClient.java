@@ -4,27 +4,35 @@ import br.com.mysafeestablishment.api.domain.Order;
 import br.com.mysafeestablishment.api.domain.OrderPad;
 import br.com.mysafeestablishment.api.domain.Product;
 import br.com.mysafeestablishment.api.domain.TableEstablishment;
-import br.com.mysafeestablishment.api.request.CloseOrderPadRequest;
-import br.com.mysafeestablishment.api.request.CreateOrderPadRequest;
-import br.com.mysafeestablishment.api.request.PaymentOrderPadByCardRequest;
-import br.com.mysafeestablishment.api.request.PaymentOrderPadRequest;
+import br.com.mysafeestablishment.api.request.*;
 import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
 import br.com.mysafeestablishment.api.response.MessageResponse;
 import br.com.mysafeestablishment.api.response.OrdersRequest;
 import feign.Feign;
+import feign.Logger;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
-import feign.slf4j.Slf4jLogger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
 public class MySafeEstablishmentClient implements MySafeEstablismentApi {
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MySafeEstablishmentClient.class);
+
+    private static class CustomLogger extends Logger {
+        @Override
+        protected void log(String s, String s1, Object... objects) {
+            logger.info(String.format(s.concat(" - ") + s1 + "%n", objects));
+        }
+    }
+
     public Feign.Builder getBuilder() {
         return Feign.builder()
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
-                .logger(new Slf4jLogger())
+                .logger(new CustomLogger())
+                .logLevel(Logger.Level.FULL)
                 .errorDecoder(new CustomErrorDecoder());
     }
 
@@ -43,7 +51,7 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public Product registerProduct(Product product) throws Exception {
+    public Product registerProduct(CreateProductRequest product) throws Exception {
         return getApi().registerProduct(product);
     }
 
@@ -54,7 +62,7 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
 
     @Override
     public Product updateProduct(Product product) throws Exception {
-        return getApi().registerProduct(product);
+        return getApi().updateProduct(product);
     }
 
     @Override

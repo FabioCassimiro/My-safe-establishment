@@ -3,10 +3,7 @@ package br.com.mysafeestablishment.api.client;
 import br.com.mysafeestablishment.api.domain.OrderPad;
 import br.com.mysafeestablishment.api.domain.Product;
 import br.com.mysafeestablishment.api.domain.TableEstablishment;
-import br.com.mysafeestablishment.api.request.CloseOrderPadRequest;
-import br.com.mysafeestablishment.api.request.CreateOrderPadRequest;
-import br.com.mysafeestablishment.api.request.PaymentOrderPadByCardRequest;
-import br.com.mysafeestablishment.api.request.PaymentOrderPadRequest;
+import br.com.mysafeestablishment.api.request.*;
 import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
 import br.com.mysafeestablishment.api.domain.Order;
 import br.com.mysafeestablishment.api.response.MessageResponse;
@@ -30,7 +27,7 @@ public interface MySafeEstablismentApi {
     Product productById(@Param("id") Long id) throws Exception;
 
     @RequestLine("POST /private/product/register")
-    Product registerProduct(@RequestBody Product product) throws Exception;
+    Product registerProduct(@RequestBody CreateProductRequest product) throws Exception;
 
     @RequestLine("DELETE /private/product/delete/{id}")
     MessageResponse delectProduct(@Param("id") Long id) throws Exception;

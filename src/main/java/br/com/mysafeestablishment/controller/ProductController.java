@@ -2,6 +2,7 @@ package br.com.mysafeestablishment.controller;
 
 import br.com.mysafeestablishment.api.client.MySafeEstablishmentClient;
 import br.com.mysafeestablishment.api.domain.Product;
+import br.com.mysafeestablishment.api.request.CreateProductRequest;
 import br.com.mysafeestablishment.api.response.MessageResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class ProductController {
     }
 
     @PostMapping("/product/register")
-    public Product registerProduct(@RequestBody Product product) throws Exception {
+    public Product registerProduct(@RequestBody CreateProductRequest product) throws Exception {
         return api.registerProduct(product);
     }
 
