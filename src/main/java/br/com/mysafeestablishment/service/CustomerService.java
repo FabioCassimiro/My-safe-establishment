@@ -60,7 +60,9 @@ public class CustomerService {
                 new Customer(
                         customerRequest.getName(),
                         CustomerUtils.validatePhoneNumber(customerRequest.getPhoneNumber()),
-                        CustomerUtils.validateCpf(customerRequest.getCpf())));
+                        CustomerUtils.validateCpf(customerRequest.getCpf()),
+                        "CUSTOMER_ROLE"
+                ));
         if (Objects.isNull(customer.getId())) {
             throw new Exception("Não foi possivel criar o customer");
         }

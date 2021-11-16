@@ -4,10 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.StringJoiner;
 
 @Entity
 public class Customer extends AbstractEntity implements UserDetails {
@@ -15,12 +13,20 @@ public class Customer extends AbstractEntity implements UserDetails {
     private String name;
     private String phoneNumber;
     private String cpf;
+    private String role;
 
 
     public Customer(String name, String phoneNumber, String cpf) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.cpf = cpf;
+    }
+
+    public Customer(String name, String phoneNumber, String cpf, String role) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.cpf = cpf;
+        this.role = role;
     }
 
     public Customer() {
@@ -51,13 +57,22 @@ public class Customer extends AbstractEntity implements UserDetails {
         this.cpf = cpf;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return "Customer{" +
-                "name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", cpf='" + cpf + '\'' +
-                '}';
+        return new StringJoiner(", ", Customer.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("phoneNumber='" + phoneNumber + "'")
+                .add("cpf='" + cpf + "'")
+                .add("role='" + role + "'")
+                .toString();
     }
 
     @Override
