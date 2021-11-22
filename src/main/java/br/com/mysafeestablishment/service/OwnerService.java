@@ -51,12 +51,15 @@ public class OwnerService {
 
     public Owner register(RegisterCompany newCompany) {
         Address address = addressRepository.save(newCompany.getAddress());
+        logger.info("Endereço Registrado - Address='{}'", address);
         Establishment establishment = newCompany.getEstablishment();
         establishment.setAddress(address);
         establishment = establishmentRepository.save(newCompany.getEstablishment());
+        logger.info("Estabelecimento Registrado - Establishment='{}'", establishment);
         Owner owner = newCompany.getOwner();
         owner.setEstablishment(establishment);
         owner = ownerRepository.save(owner);
+        logger.info("Proprietario Registrado - Owner='{}'", owner);
         customerRepository.save(
                 new Customer(
                         owner.getName(),
@@ -65,6 +68,7 @@ public class OwnerService {
                         "OWNER_ROLE"
                 )
         );
+        logger.info("Cadastrado com sucesso");
         return owner;
     }
 

@@ -1,5 +1,6 @@
 package br.com.mysafeestablishment.service;
 
+import br.com.mysafeestablishment.api.client.MySafeEstablishmentClient;
 import br.com.mysafeestablishment.api.domain.Customer;
 import br.com.mysafeestablishment.api.domain.repository.CustomerRepository;
 import br.com.mysafeestablishment.api.request.CustomerRequest;
