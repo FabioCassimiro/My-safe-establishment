@@ -5,12 +5,12 @@ import java.util.StringJoiner;
 public class OwnerResponse {
 
     private Long id;
-    private String email;
+    private String name;
     private String token;
 
-    public OwnerResponse(Long id, String email, String token) {
+    public OwnerResponse(Long id, String name, String token) {
         this.id = id;
-        this.email = email;
+        this.name = name;
         this.token = token;
     }
 
@@ -22,12 +22,12 @@ public class OwnerResponse {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getToken() {
@@ -42,7 +42,7 @@ public class OwnerResponse {
     public String toString() {
         return new StringJoiner(", ", OwnerResponse.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("email='" + email + "'")
+                .add("name='" + name + "'")
                 .add("token='" + token + "'")
                 .toString();
     }

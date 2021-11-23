@@ -82,7 +82,6 @@ public class OwnerService {
             return new ResponseEntity<>(new OwnerResponse(
                     customer.getId(),
                     customer.getName(),
-
                     token
             ), HttpStatus.OK);
         } catch (Exception e) {
