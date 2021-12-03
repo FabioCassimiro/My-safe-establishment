@@ -87,22 +87,22 @@ public interface MySafeEstablismentApi {
 
     /* Management */
 
-    @RequestLine("GET order")
+    @RequestLine("GET private/management/order")
     Order orderById(@Param Long orderId, @Param Long orderpad) throws Exception;
 
-    @RequestLine("GET orders")
+    @RequestLine("GET private/management/orders")
     List<Order> listOrdersByOrderPad(@Param Long orderpad) throws Exception;
 
-    @RequestLine("POST change/order")
+    @RequestLine("POST private/management/change/order")
     Order changeStatusOrder(@Param Long orderId, @Param String status, @Param Long customerId) throws Exception;
 
-    @RequestLine("POST orderpad")
+    @RequestLine("POST private/management/orderpad")
     OrderPad orderpadById(@Param Long id) throws Exception;
 
-    @RequestLine("GET orderpads")
+    @RequestLine("GET private/management/orderpads")
     List<OrderPad> listOrderpad() throws Exception;
 
-    @RequestLine("POST /manual/payment/orderpad")
+    @RequestLine("POST private/management/manual/payment/orderpad")
     OrderPad paymentManualOrderPad(@RequestBody PaymentOrderPadByManualRequest paymentOrderPadByManualRequest) throws Exception;
 
 }
