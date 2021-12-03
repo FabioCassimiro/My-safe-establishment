@@ -1,11 +1,11 @@
 package br.com.mysafeestablishment.api.client;
 
+import br.com.mysafeestablishment.api.domain.Order;
 import br.com.mysafeestablishment.api.domain.OrderPad;
 import br.com.mysafeestablishment.api.domain.Product;
 import br.com.mysafeestablishment.api.domain.TableEstablishment;
 import br.com.mysafeestablishment.api.request.*;
 import br.com.mysafeestablishment.api.response.CloseOrderPadResponse;
-import br.com.mysafeestablishment.api.domain.Order;
 import br.com.mysafeestablishment.api.response.MessageResponse;
 import br.com.mysafeestablishment.api.response.OrdersRequest;
 import feign.Headers;
@@ -14,6 +14,8 @@ import feign.RequestLine;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Headers("Content-Type: application/json")
 
 public interface MySafeEstablismentApi {
@@ -46,6 +48,9 @@ public interface MySafeEstablismentApi {
     @RequestLine("GET /private/order/{customerId}/{orderId}")
     Order ordersByCustomerId(@Param("customerId") Long customerId, @Param("orderId") Long orderId) throws Exception;
 
+    @RequestLine("DELETE /private/order/delete")
+    MessageResponse deleteOrder(@RequestBody Order order) throws Exception;
+
     /* OrderPad */
 
     @RequestLine("POST /private/orderpad/create")
@@ -54,8 +59,8 @@ public interface MySafeEstablismentApi {
     @RequestLine("POST /private/orderpad/close")
     CloseOrderPadResponse closerOrderPad(@RequestBody CloseOrderPadRequest closeOrderPadRequest) throws Exception;
 
-    @RequestLine("POST /private/orderpad/payment")
-    OrderPad paymentOrderPad(@RequestBody PaymentOrderPadRequest paymentOrderPadRequest) throws Exception;
+    @RequestLine("POST /manual/payment/{ordepadId}/{customerId}")
+    OrderPad paymentOrderPad(@Param("orderpadId") long orderpadId, @Param("customerId") long customerId) throws Exception;
 
     @RequestLine("POST /private/orderpad/card/payment")
     OrderPad paymentOrderPadbyCard(@RequestBody PaymentOrderPadByCardRequest paymentOrderPadByCardRequest) throws Exception;
@@ -79,4 +84,25 @@ public interface MySafeEstablismentApi {
 
     @RequestLine("PUT /private/table/update")
     TableEstablishment updateTable(@RequestBody TableEstablishment table) throws Exception;
+
+    /* Management */
+
+    @RequestLine("GET order")
+    Order orderById(@Param Long orderId, @Param Long orderpad) throws Exception;
+
+    @RequestLine("GET orders")
+    List<Order> listOrdersByOrderPad(@Param Long orderpad) throws Exception;
+
+    @RequestLine("POST change/order")
+    Order changeStatusOrder(@Param Long orderId, @Param String status, @Param Long customerId) throws Exception;
+
+    @RequestLine("POST orderpad")
+    OrderPad orderpadById(@Param Long id) throws Exception;
+
+    @RequestLine("GET orderpads")
+    List<OrderPad> listOrderpad() throws Exception;
+
+    @RequestLine("POST /manual/payment/orderpad")
+    OrderPad paymentManualOrderPad(@RequestBody PaymentOrderPadByManualRequest paymentOrderPadByManualRequest) throws Exception;
+
 }

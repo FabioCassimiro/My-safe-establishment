@@ -33,4 +33,9 @@ public class OrderController {
     public Order orderById(@PathVariable long customerId, @PathVariable long orderId) throws Exception {
         return api.ordersByCustomerId(customerId, orderId);
     }
+
+    @DeleteMapping
+    public MessageResponse deleteOrder(@RequestBody Order order) throws Exception {
+        return api.deleteOrder(order);
+    }
 }

@@ -4,6 +4,7 @@ public class TableEstablishment extends AbstractEntity{
 
     private String statusTable;
     private String locationArea;
+    private Integer numberSeats;
 
     public String getStatusTable() {
         return statusTable;
@@ -19,6 +20,14 @@ public class TableEstablishment extends AbstractEntity{
 
     public void setLocationArea(String locationArea) {
         this.locationArea = locationArea;
+    }
+
+    public Integer getNumberSeats() {
+        return numberSeats;
+    }
+
+    public void setNumberSeats(Integer numberSeats) {
+        this.numberSeats = numberSeats;
     }
 
     public TableEstablishment() {

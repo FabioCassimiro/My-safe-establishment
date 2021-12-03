@@ -15,6 +15,7 @@ import feign.jackson.JacksonEncoder;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MySafeEstablishmentClient implements MySafeEstablismentApi {
 
@@ -81,6 +82,11 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
+    public MessageResponse deleteOrder(Order order) throws Exception {
+        return getApi().deleteOrder(order);
+    }
+
+    @Override
     public OrderPad createOrderPad(CreateOrderPadRequest createOrderPadRequest) throws Exception {
         return getApi().createOrderPad(createOrderPadRequest);
     }
@@ -91,8 +97,8 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public OrderPad paymentOrderPad(PaymentOrderPadRequest paymentOrderPadRequest) throws Exception {
-        return getApi().paymentOrderPad(paymentOrderPadRequest);
+    public OrderPad paymentOrderPad(long orderpadId, long customerId) throws Exception {
+        return getApi().paymentOrderPad(orderpadId, customerId);
     }
 
     @Override
@@ -128,5 +134,35 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     @Override
     public TableEstablishment updateTable(TableEstablishment table) throws Exception {
         return getApi().updateTable(table);
+    }
+
+    @Override
+    public Order orderById(Long orderId, Long orderpad) throws Exception {
+        return getApi().orderById(orderId,orderpad);
+    }
+
+    @Override
+    public List<Order> listOrdersByOrderPad(Long orderpad) throws Exception {
+        return getApi().listOrdersByOrderPad(orderpad);
+    }
+
+    @Override
+    public Order changeStatusOrder(Long orderId, String status, Long customerId) throws Exception {
+        return getApi().changeStatusOrder(orderId,status,customerId);
+    }
+
+    @Override
+    public OrderPad orderpadById(Long id) throws Exception {
+        return getApi().orderpadById(id);
+    }
+
+    @Override
+    public List<OrderPad> listOrderpad() throws Exception {
+        return getApi().listOrderpad();
+    }
+
+    @Override
+    public OrderPad paymentManualOrderPad(PaymentOrderPadByManualRequest paymentOrderPadByManualRequest) throws Exception {
+        return getApi().paymentManualOrderPad(paymentOrderPadByManualRequest);
     }
 }
