@@ -137,6 +137,11 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
+    public List<TableEstablishment> tableByNumberSeats(Integer numberSeats) {
+        return getApi().tableByNumberSeats(numberSeats);
+    }
+
+    @Override
     public Order orderById(Long orderId, Long orderpad) throws Exception {
         return getApi().orderById(orderId,orderpad);
     }

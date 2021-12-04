@@ -6,6 +6,7 @@ import br.com.mysafeestablishment.api.response.MessageResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/private")
@@ -41,5 +42,10 @@ public class TableController {
     @DeleteMapping("table/delete/{id}")
     public MessageResponse deleteTables(@PathVariable() Long id) throws Exception {
         return api.delectTable(id);
+    }
+
+    @GetMapping("/table")
+    public List<TableEstablishment> tableByNumberSeats(@RequestParam(name = "numberSeats") Integer numberSeats) throws Exception {
+        return api.tableByNumberSeats(numberSeats);
     }
 }
