@@ -1,5 +1,7 @@
 package br.com.mysafeestablishment.api.domain;
 
+import java.util.StringJoiner;
+
 public class Order extends AbstractEntity {
 
     private long orderPadId;
@@ -8,6 +10,7 @@ public class Order extends AbstractEntity {
     private int quantity;
     private double value;
     private String note;
+    private String status;
 
     public long getOrderPadId() {
         return orderPadId;
@@ -57,6 +60,14 @@ public class Order extends AbstractEntity {
         this.note = note;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Order(long productId, int quantity) {
         this.productId = productId;
         this.quantity = quantity;
@@ -67,13 +78,14 @@ public class Order extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "orderPadId=" + orderPadId +
-                ", productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", quantity=" + quantity +
-                ", value=" + value +
-                ", note='" + note + '\'' +
-                '}';
+        return new StringJoiner(", ", Order.class.getSimpleName() + "[", "]")
+                .add("orderPadId=" + orderPadId)
+                .add("productId=" + productId)
+                .add("productName='" + productName + "'")
+                .add("quantity=" + quantity)
+                .add("value=" + value)
+                .add("note='" + note + "'")
+                .add("status='" + status + "'")
+                .toString();
     }
 }
