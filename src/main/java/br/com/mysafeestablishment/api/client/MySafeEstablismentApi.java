@@ -87,7 +87,7 @@ public interface MySafeEstablismentApi {
     TableEstablishment updateTable(@RequestBody TableEstablishment table) throws Exception;
 
     @RequestLine("GET /private/table")
-    List<TableEstablishment> tableByNumberSeats(@RequestParam(name = "numberSeats") Integer numberSeats);
+    List<TableEstablishment> tableByNumberSeats(@RequestParam(name = "numberSeats") Integer numberSeats) throws Exception;
 
     /* Management */
 

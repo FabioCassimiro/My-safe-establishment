@@ -137,7 +137,7 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public List<TableEstablishment> tableByNumberSeats(Integer numberSeats) {
+    public List<TableEstablishment> tableByNumberSeats(Integer numberSeats) throws Exception {
         return getApi().tableByNumberSeats(numberSeats);
     }
 
