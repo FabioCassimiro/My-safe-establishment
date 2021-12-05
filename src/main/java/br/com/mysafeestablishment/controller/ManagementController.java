@@ -40,7 +40,7 @@ public class ManagementController {
     }
 
     @GetMapping("orderpad")
-    public OrderPad orderpadById(@RequestParam(required = false, name = "id") Long orderPad) throws Exception {
+    public OrderPad orderpadById(@RequestParam(name = "id") Long orderPad) throws Exception {
         return api.orderpadById(orderPad);
     }
 

@@ -86,21 +86,21 @@ public interface MySafeEstablismentApi {
     @RequestLine("PUT /private/table/update")
     TableEstablishment updateTable(@RequestBody TableEstablishment table) throws Exception;
 
-    @RequestLine("GET /private/table")
-    List<TableEstablishment> tableByNumberSeats(@Param Integer numberSeats) throws Exception;
+    @RequestLine("GET /private/table?numberSeats={numberSeats}")
+    List<TableEstablishment> tableByNumberSeats(@Param("numberSeats") Integer numberSeats) throws Exception;
 
     /* Management */
 
-    @RequestLine("GET private/management/order")
+    @RequestLine("GET private/management/order?id={orderId}&orderpad={orderpad}")
     Order orderById(@Param Long orderId, @Param Long orderpad) throws Exception;
 
-    @RequestLine("GET private/management/orders")
+    @RequestLine("GET private/management/orders?orderpad={orderpad}")
     List<Order> listOrdersByOrderPad(@Param Long orderpad) throws Exception;
 
-    @RequestLine("POST private/management/change/order")
+    @RequestLine("POST private/management/change/order?id={orderId}&status={status}&customerId={customerId}")
     Order changeStatusOrder(@Param Long orderId, @Param String status, @Param Long customerId) throws Exception;
 
-    @RequestLine("POST private/management/orderpad")
+    @RequestLine("GET private/management/orderpad?id={id}")
     OrderPad orderpadById(@Param Long id) throws Exception;
 
     @RequestLine("GET private/management/orderpads")
