@@ -23,7 +23,7 @@ public class OwnerController {
     }
 
     @PostMapping("/register")
-    public Owner register(@RequestBody RegisterCompany registerCompany){
+    public ResponseEntity<OwnerResponse> register(@RequestBody RegisterCompany registerCompany){
         logger.info("Registrando Owner - RegisterCompany");
         return ownerService.register(registerCompany);
     }

@@ -49,7 +49,7 @@ public class OwnerService {
         this.authenticationManager = authenticationManager;
     }
 
-    public Owner register(RegisterCompany newCompany) {
+    public ResponseEntity<OwnerResponse> register(RegisterCompany newCompany) {
         Address address = addressRepository.save(newCompany.getAddress());
         logger.info("Endereço Registrado - Address='{}'", address);
         Establishment establishment = newCompany.getEstablishment();
@@ -60,7 +60,7 @@ public class OwnerService {
         owner.setEstablishment(establishment);
         owner = ownerRepository.save(owner);
         logger.info("Proprietario Registrado - Owner='{}'", owner);
-        customerRepository.save(
+        Customer customer = customerRepository.save(
                 new Customer(
                         owner.getName(),
                         owner.getPassword(),
@@ -69,7 +69,11 @@ public class OwnerService {
                 )
         );
         logger.info("Cadastrado com sucesso");
-        return owner;
+        return new ResponseEntity<>(new OwnerResponse(
+                customer.getId(),
+                customer.getName(),
+                authenticateUser(new OwnerRequest(owner.getEmail(), owner.getPassword()))
+        ), HttpStatus.OK);
     }
 
     public ResponseEntity<OwnerResponse> login(OwnerRequest ownerRequest) throws Exception {
