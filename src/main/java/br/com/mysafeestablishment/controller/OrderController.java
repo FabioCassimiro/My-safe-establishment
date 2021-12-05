@@ -38,4 +38,9 @@ public class OrderController {
     public MessageResponse deleteOrder(@RequestParam(name = "id") Long orderId, @RequestParam Long orderpadId) throws Exception {
         return api.deleteOrder(orderId, orderpadId);
     }
+
+    @PostMapping("update/{orderId}/{orderpadId}/{quantity}")
+    public Order update(@PathVariable long orderId, @PathVariable long orderpadId, @PathVariable int quantity) throws Exception {
+        return api.updateOrder(orderId, orderpadId, quantity);
+    }
 }

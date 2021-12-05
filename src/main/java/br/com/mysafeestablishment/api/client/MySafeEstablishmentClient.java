@@ -88,6 +88,11 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
+    public Order updateOrder(long orderId, long orderpadId, int quantity) throws Exception {
+        return getApi().updateOrder(orderId, orderpadId, quantity);
+    }
+
+    @Override
     public OrderPad createOrderPad(CreateOrderPadRequest createOrderPadRequest) throws Exception {
         return getApi().createOrderPad(createOrderPadRequest);
     }

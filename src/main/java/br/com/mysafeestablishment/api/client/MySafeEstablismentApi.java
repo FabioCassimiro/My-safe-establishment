@@ -12,7 +12,6 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +50,9 @@ public interface MySafeEstablismentApi {
 
     @RequestLine("DELETE private/order/delete/order?id={orderId}&orderpadId={orderpadId}")
     MessageResponse deleteOrder(@Param() Long orderId, @Param Long orderpadId) throws Exception;
+
+    @RequestLine("POST update/{orderId}/{orderpadId}/{quantity}")
+    Order updateOrder(@Param("orderId") long orderId, @Param("orderpadId") long orderpadId, @Param("quantity") int quantity) throws Exception;
 
     /* OrderPad */
 
