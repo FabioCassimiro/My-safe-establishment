@@ -49,8 +49,8 @@ public interface MySafeEstablismentApi {
     @RequestLine("GET /private/order/{customerId}/{orderId}")
     Order ordersByCustomerId(@Param("customerId") Long customerId, @Param("orderId") Long orderId) throws Exception;
 
-    @RequestLine("DELETE /private/order/delete")
-    MessageResponse deleteOrder(@RequestBody Order order) throws Exception;
+    @RequestLine("DELETE private/order/delete/order?id={orderId}&orderpadId={orderpadId}")
+    MessageResponse deleteOrder(@Param() Long orderId, @Param Long orderpadId) throws Exception;
 
     /* OrderPad */
 

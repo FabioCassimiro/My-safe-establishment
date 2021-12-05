@@ -34,8 +34,8 @@ public class OrderController {
         return api.ordersByCustomerId(customerId, orderId);
     }
 
-    @DeleteMapping("delete")
-    public MessageResponse deleteOrder(@RequestBody Order order) throws Exception {
-        return api.deleteOrder(order);
+    @DeleteMapping("delete/order")
+    public MessageResponse deleteOrder(@RequestParam(name = "id") Long orderId, @RequestParam Long orderpadId) throws Exception {
+        return api.deleteOrder(orderId, orderpadId);
     }
 }

@@ -10,6 +10,7 @@ import br.com.mysafeestablishment.api.response.MessageResponse;
 import br.com.mysafeestablishment.api.response.OrdersRequest;
 import feign.Feign;
 import feign.Logger;
+import feign.Param;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import org.slf4j.LoggerFactory;
@@ -82,8 +83,8 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
     }
 
     @Override
-    public MessageResponse deleteOrder(Order order) throws Exception {
-        return getApi().deleteOrder(order);
+    public MessageResponse deleteOrder(Long orderId, Long orderpadId) throws Exception {
+        return getApi().deleteOrder(orderId, orderpadId);
     }
 
     @Override
@@ -143,7 +144,7 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
 
     @Override
     public Order orderById(Long orderId, Long orderpad) throws Exception {
-        return getApi().orderById(orderId,orderpad);
+        return getApi().orderById(orderId, orderpad);
     }
 
     @Override
@@ -153,7 +154,7 @@ public class MySafeEstablishmentClient implements MySafeEstablismentApi {
 
     @Override
     public Order changeStatusOrder(Long orderId, String status, Long customerId) throws Exception {
-        return getApi().changeStatusOrder(orderId,status,customerId);
+        return getApi().changeStatusOrder(orderId, status, customerId);
     }
 
     @Override
