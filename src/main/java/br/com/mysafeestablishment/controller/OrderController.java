@@ -41,6 +41,7 @@ public class OrderController {
 
     @PostMapping("update/{orderId}/{orderpadId}/{quantity}")
     public Order update(@PathVariable long orderId, @PathVariable long orderpadId, @PathVariable int quantity) throws Exception {
+        System.out.println("Passei aqui");
         return api.updateOrder(orderId, orderpadId, quantity);
     }
 }
